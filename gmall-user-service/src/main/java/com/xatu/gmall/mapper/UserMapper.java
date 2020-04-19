@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-04-15
  */
 @Mapper
-@Repository
 public interface UserMapper extends BaseMapper<Member> {
 
     List<Member> SelectUserById(Integer i);

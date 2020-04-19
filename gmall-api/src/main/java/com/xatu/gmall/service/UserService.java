@@ -15,7 +15,6 @@ import java.util.List;
  * @author LiangHuan
  * @since 2020-04-15
  */
-@Service
 public interface UserService extends IService<Member> {
 
     List<Member> selectUserById(Integer i);

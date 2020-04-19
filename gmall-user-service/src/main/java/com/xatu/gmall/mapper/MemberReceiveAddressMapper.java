@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * @since 2020-04-15
  */
 @Mapper
-@Repository
 public interface MemberReceiveAddressMapper extends BaseMapper<MemberReceiveAddress> {
 
 }

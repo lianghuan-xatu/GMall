@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
  * @author LiangHuan
  * @since 2020-04-15
  */
-@Service
 public interface MemberReceiveAddressService extends IService<MemberReceiveAddress> {
 
 }
