@@ -40,11 +40,11 @@ public class CodeGenerator {
         gc.setOpen(false);
         gc.setFileOverride(false);
         //gc.setSwagger2(true); //实体属性 Swagger2 注解
-        gc.setControllerName("AttrController");
-        gc.setServiceName("AttrLogService");
-        gc.setServiceImplName("AttrServiceImpl");
-        gc.setMapperName("AttrMapper");
-        gc.setXmlName("AttrMapper");
+        gc.setControllerName("SpuController");
+        gc.setServiceName("SpuService");
+        gc.setServiceImplName("SpuServiceImpl");
+        gc.setMapperName("SpuMapper");
+        gc.setXmlName("SpuMapper");
         gc.setIdType(IdType.AUTO);
         gc.setDateType(DateType.ONLY_DATE);
         mpg.setGlobalConfig(gc);
@@ -81,7 +81,7 @@ public class CodeGenerator {
         /* 公共父类
          strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");// 写于父类中的公共字段
          strategy.setSuperEntityColumns("id");*/
-        strategy.setInclude("pms_base_attr_info","pms_base_attr_value");  //设置要要映射的表名
+        strategy.setInclude("pms_product_image");  //设置要要映射的表名
 
        /* strategy.setControllerMappingHyphenStyle(true);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());*/
