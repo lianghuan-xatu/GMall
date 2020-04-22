@@ -8,7 +8,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>gmall-manage-web</name>
     <description>Demo project for Spring Boot</description>
-
+    <parent>
+        <groupId>com.xatu.gmall</groupId>
+        <artifactId>gmall-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,14 +30,6 @@
             <artifactId>gmall-web-util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-
-       <!-- <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>4.3.14.RELEASE</version>
-        </dependency>-->
-
     </dependencies>
 
     <build>

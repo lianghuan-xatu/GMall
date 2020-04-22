@@ -7,6 +7,8 @@
 * gmall-user-web用户服务的web层8080
 - gmall-manage-service用户服务的service层8071
 * gmall-manage-web用户服务的web层8081
+* gmall-item-service前台的商品详情服务直接调用gmall-manage-service模块
+* gmall-item-web前台的商品详情web层8082
 
     项目会持续更新，如需协同开发联系（zachary）：
      
