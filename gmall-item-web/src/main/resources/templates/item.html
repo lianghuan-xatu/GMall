@@ -1023,16 +1023,16 @@
         function switchSkuId() {
             var skuSaleAttrValueJsonStr = $("#valuesSku").val();
             var saleAttrValueIds = $(".redborder div");
-            var k = "";
-            $(saleAttrValueIds).each(function(i,saleAttrValueId){
-               k = k +  $(saleAttrValueId).attr("value")+"|";
+            var k ="";
+            $(saleAttrValueIds).each(function (i,saleAttrValueId) {
+				k = k + $(saleAttrValueId).attr("value")+"|";
 			});
-            var kuSaleAttrValueJson = JSON.parse(skuSaleAttrValueJsonStr);
-            var v_skuId = kuSaleAttrValueJson[k];
-			if(v_skuId){
-                window.location.href = "http://item.gmall.com:8082/"+v_skuId+".html";
+            var skuSaleAttrValueStr = JSON.parse(skuSaleAttrValueJsonStr);
+            alert(skuSaleAttrValueStr);
+            var v_skuId = skuSaleAttrValueStr[k];
+            if(v_skuId!=null){
+				window.location.href = "http://localhost:8082/"+v_skuId+".html";
 			}
-
         }
 	</script>
 

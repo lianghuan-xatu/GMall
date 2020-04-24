@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xatu.gmall.mapper.SaleAttrMapper">
+
+<resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="com.xatu.gmall.entity.PmsProductSaleAttr" autoMapping="true" >
+    <result property="id" column="sa_id"></result>
+    <collection property="spuSaleAttrValueList" ofType="com.xatu.gmall.entity.PmsProductSaleAttrValue" autoMapping="true">
+        <result property="id" column="sav_id"></result>
+    </collection>
+</resultMap>
+<select id="selectSpuSaleAttrListCheckBySku" resultMap="selectSpuSaleAttrListCheckBySkuMap">
+        select
+            sa.id as sa_id,sav.id as sav_id,sa.*,sav.*,if(ssav.sku_id,1,0) as isChecked
+        from
+            pms_product_sale_attr as sa
+            inner join pms_product_sale_attr_value as sav on sa.product_id =sav.product_id
+            and sa.sale_attr_id = sav.sale_attr_id
+            and sa.product_id = #{productId}
+            left join pms_sku_sale_attr_value as ssav on sav.id = ssav.sale_attr_value_id
+            and ssav.sku_id = #{skuId}
+    </select>
+
+
+</mapper>
