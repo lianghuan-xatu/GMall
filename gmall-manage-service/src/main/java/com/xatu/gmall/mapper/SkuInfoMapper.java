@@ -10,4 +10,6 @@ import java.util.List;
 public interface SkuInfoMapper extends BaseMapper<PmsSkuInfo>
 {
     List<PmsSkuInfo> selectSkuSaleAttrValueListBySpu(String spuId);
+
+    List<PmsSkuInfo> selectAll();
 }
