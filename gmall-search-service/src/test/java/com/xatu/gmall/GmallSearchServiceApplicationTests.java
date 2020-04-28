@@ -32,11 +32,13 @@ public class GmallSearchServiceApplicationTests {
         for (PmsSkuInfo pmsSkuInfo : pmsSkuInfoList) {
             PmsSearchSkuInfo pmsSearchSkuInfo=new PmsSearchSkuInfo();
             BeanUtils.copyProperties(pmsSkuInfo,pmsSearchSkuInfo);
+            pmsSearchSkuInfo.setProductId(pmsSkuInfo.getSpuId());
             pmsSearchSkuInfoList.add(pmsSearchSkuInfo);
         }
         //导入es
         for (PmsSearchSkuInfo pmsSearchSkuInfo : pmsSearchSkuInfoList) {
-            Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall").type("PmsSkuInfo").id(pmsSearchSkuInfo.getId()).build();
+            String idStr = pmsSearchSkuInfo.getId().toString();
+            Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall").type("PmsSkuInfo").id(idStr).build();
             jestClient.execute(put);
         }
 

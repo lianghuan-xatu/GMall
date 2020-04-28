@@ -185,7 +185,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, PmsSkuInfo> imple
 
 
     public List<PmsSkuInfo> selectAllSku(String catalog3Id) {
-        List<PmsSkuInfo> pmsSkuInfos = skuInfoMapper.selectAll();
+        List<PmsSkuInfo> pmsSkuInfos = skuInfoMapper.selectList(new QueryWrapper<PmsSkuInfo>());
         for (PmsSkuInfo pmsSkuInfo : pmsSkuInfos) {
             Long skuId = pmsSkuInfo.getId();
             List<PmsSkuAttrValue> pmsSkuAttrValueList = skuAttrValueMapper.selectList(new QueryWrapper<PmsSkuAttrValue>().eq("sku_id", skuId));

@@ -2,38 +2,46 @@ package com.xatu.gmall.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PmsSearchSkuInfo {
+public class PmsSearchSkuInfo implements Serializable {
 
     @TableId
-    private String id;
-    private Long price;
+    private Long id;
+    private double price;
     private String skuName;
     private String skuDesc;
-    private String catalog3Id;
+    private Long catalog3Id;
     private String skuDefaultImg;
     private double hotscore;
     private String productId;
     private List<PmsSkuAttrValue> skuAttrValueList;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-
-    public void setId(Long id) {
-        String idStr = id.toString();
-        this.id = idStr;
-    }
-
-    public Long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
+
+    public Long getCatalog3Id() {
+        return catalog3Id;
+    }
+
+    public void setCatalog3Id(Long catalog3Id) {
+        this.catalog3Id = catalog3Id;
+    }
+
+    public void setId(Long id) {
+      this.id = id;
+    }
+
 
     public String getSkuName() {
         return skuName;
@@ -51,13 +59,7 @@ public class PmsSearchSkuInfo {
         this.skuDesc = skuDesc;
     }
 
-    public String getCatalog3Id() {
-        return catalog3Id;
-    }
 
-    public void setCatalog3Id(String catalog3Id) {
-        this.catalog3Id = catalog3Id;
-    }
 
     public String getSkuDefaultImg() {
         return skuDefaultImg;

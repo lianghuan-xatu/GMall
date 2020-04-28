@@ -17,10 +17,5 @@
 
 
 
-    <select id="selectAll" resultType="com.xatu.gmall.entity.PmsSkuInfo">
-        select * from pms_sku_info;
-    </select>
-
-
 
 </mapper>
