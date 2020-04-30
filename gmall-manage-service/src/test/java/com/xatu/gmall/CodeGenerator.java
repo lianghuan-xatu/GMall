@@ -40,11 +40,11 @@ public class CodeGenerator {
         gc.setOpen(false);
         gc.setFileOverride(false);
         //gc.setSwagger2(true); //实体属性 Swagger2 注解
-        gc.setControllerName("SkuController");
-        gc.setServiceName("SkuService");
-        gc.setServiceImplName("SkuServiceImpl");
-        gc.setMapperName("SkuMapper");
-        gc.setXmlName("SkuMapper");
+        gc.setControllerName("CartController");
+        gc.setServiceName("CartService");
+        gc.setServiceImplName("CartServiceImpl");
+        gc.setMapperName("CartMapper");
+        gc.setXmlName("CartMapper");
         gc.setIdType(IdType.AUTO);
         gc.setDateType(DateType.ONLY_DATE);
         mpg.setGlobalConfig(gc);
@@ -81,7 +81,7 @@ public class CodeGenerator {
         /* 公共父类
          strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");// 写于父类中的公共字段
          strategy.setSuperEntityColumns("id");*/
-        strategy.setInclude("pms_sku_attr_value","pms_sku_image","pms_sku_info","pms_sku_sale_attr_value");  //设置要要映射的表名
+        strategy.setInclude("oms_cart_item");  //设置要要映射的表名
 
        /* strategy.setControllerMappingHyphenStyle(true);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());*/

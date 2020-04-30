@@ -67,7 +67,7 @@
 				<nav>
 				<div class="nav_min">
 					<div class="nav_top">
-						<div class="nav_top_one"><a href="#"><img src=""/></a></div>
+						<div class="nav_top_one"><a href="#"><img src="/img/logo.png"/></a></div>
 						<div class="nav_top_two"><input type="text"/><button>搜索</button></div>
 						<div class="nav_top_three"><a href="../JD_Shop/One_JDshop.html">我的购物车</a><span class="glyphicon glyphicon-shopping-cart"></span>
 							<div class="nav_top_three_1">
@@ -261,8 +261,8 @@
 
 						<div class="box-btns clear">
 							<div class="box-btns-one">
-								<form id="itemForm" action="http://cart.gmall.com:8087/addToCart" method="post">
-									<input type="text" name="num" id=""  value="1"/>
+								<form id="itemForm" action="http://localhost:8084/addToCart" method="post">
+									<input type="text" name="quantity" id=""  value="1"/>
 									<input type="hidden" name="skuId"  th:value="${skuInfo?.id}" />
 
 									<div class="box-btns-one1">
@@ -1028,7 +1028,6 @@
 				k = k + $(saleAttrValueId).attr("value")+"|";
 			});
             var skuSaleAttrValueStr = JSON.parse(skuSaleAttrValueJsonStr);
-            alert(skuSaleAttrValueStr);
             var v_skuId = skuSaleAttrValueStr[k];
             if(v_skuId!=null){
 				window.location.href = "http://localhost:8082/"+v_skuId+".html";
