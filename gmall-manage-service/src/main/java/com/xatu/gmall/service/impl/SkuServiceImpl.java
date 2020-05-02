@@ -37,6 +37,8 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, PmsSkuInfo> imple
     SkuImageMapper skuImageMapper;
     @Autowired
     Redisson redisson;
+    @Autowired
+    RedisUtil redisUtil;
 
     public void saveSkuInfo(PmsSkuInfo pmsSkuInfo) {
         //插入SkuInfo
@@ -69,7 +71,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, PmsSkuInfo> imple
         pmsSkuInfo.setSkuImageList(skuImageList);*/
         PmsSkuInfo pmsSkuInfo = null;
         //链接缓存
-        Jedis jedis = RedisUtil.getJedis();
+        Jedis jedis = redisUtil.getJedis();
         //查询缓存
         String skuKey = "sku:"+skuId+":info";
         String skuJson = jedis.get(skuKey);

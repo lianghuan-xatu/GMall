@@ -40,6 +40,7 @@ public class SearchServiceImpl implements SearchService
              execute = jestClient.execute(search);
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println("es未查询到数据");
         }
 
         ArrayList<PmsSearchSkuInfo> pmsSearchSkuInfoArrayList = new ArrayList<>();

@@ -8,13 +8,16 @@ import com.xatu.gmall.entity.PmsSkuInfo;
 import com.xatu.gmall.service.CartService;
 import com.xatu.gmall.service.SkuService;
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.groovy.util.StringUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import util.CookieUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +41,7 @@ public class CartController {
         omsCartItem.setCreateDate(new Date());
         omsCartItem.setDeleteStatus(0);
         omsCartItem.setModifyDate(new Date());
-        omsCartItem.setPrice(BigDecimal.valueOf(pmsSkuInfo.getPrice()).multiply(BigDecimal.valueOf(quantity)));
+        omsCartItem.setPrice(BigDecimal.valueOf(pmsSkuInfo.getPrice()));
         omsCartItem.setProductAttr("");
         omsCartItem.setProductBrand("");
         omsCartItem.setProductCategoryId(pmsSkuInfo.getCatalog3Id());
@@ -50,7 +53,7 @@ public class CartController {
         omsCartItem.setQuantity(quantity);
 
         //判断用户是否登录
-        String memberId = "";//"1"
+        String memberId = "1";//"1"
         if (StringUtils.isBlank(memberId)) {
             //用户未登录
             List<OmsCartItem> omsCartItems = new ArrayList<>();
@@ -87,7 +90,7 @@ public class CartController {
             OmsCartItem omsCartItemFromDB = cartService.getCartExistByUser(memberId,skuId);
             if(omsCartItemFromDB==null){
                 //购物车中没有该商品
-                omsCartItemFromDB.setMemberId(Long.valueOf(memberId));
+                omsCartItem.setMemberId(Long.valueOf(memberId));
                 cartService.addCartIterm(omsCartItem);
             }else{
                 //购物车中有该商品 直接更新数据库
@@ -101,6 +104,44 @@ public class CartController {
             return "redirect:/success.html";
         }
 
+        @RequestMapping("/cartList")
+        public String cartList(String skuId, Integer quantity, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap){
+
+        List<OmsCartItem> omsCartItems = new ArrayList<>();
+        String userId = "1";
+        if(StringUtils.isNotBlank(userId)){
+            //已经登录  查询db
+            omsCartItems = cartService.carList(userId);
+
+        }else{
+           //没有登陆 查询cookie
+            String cartListCookie = CookieUtil.getCookieValue(request, "cartListCookie", true);
+            omsCartItems = JSON.parseArray(cartListCookie, OmsCartItem.class);
+            for (OmsCartItem omsCartItem : omsCartItems) {
+                omsCartItem.setTotalPrice(omsCartItem.getPrice().multiply(BigDecimal.valueOf(omsCartItem.getQuantity())).toString());
+            }
+
+        }
+        modelMap.put("cartList",omsCartItems);
+        return "cartList";
+        }
+
+
+        @RequestMapping("/checkCart")
+        public String checkCart(String isChecked,String skuId,HttpServletRequest request,HttpServletResponse response,HttpSession session,ModelMap modelMap){
+        String memberId = "1";
+        //调用服务，修改状态
+            cartService.checkCart(skuId,memberId,isChecked);
+            //将最新的数据从缓存总查出来，渲染给内嵌页
+            List<OmsCartItem> omsCartItems = cartService.carList(memberId);
+            modelMap.put("cartList",omsCartItems);
+            BigDecimal totalAmount = getTotalAmount(omsCartItems);
+            modelMap.put("totalAccount",totalAmount);
+            return "cartListInner";
+        }
+
+
+
     private boolean if_cart_exist(List<OmsCartItem> omsCartItems, OmsCartItem omsCartItem) {
         boolean exist = false;
         for (OmsCartItem cartItem : omsCartItems) {
@@ -111,5 +152,14 @@ public class CartController {
             }
         }
         return exist;
+    }
+
+    private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems){
+        BigDecimal totalAmount = new BigDecimal("0");
+        for (OmsCartItem omsCartItem : omsCartItems) {
+            BigDecimal totalPrice = new BigDecimal(omsCartItem.getTotalPrice());
+            totalAmount = totalAmount.add(totalPrice);
+        }
+        return totalAmount;
     }
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="One_ShopCon">
+    <ul>
+        <li  th:each="cartInfo:${cartList}">
+            <div> </div>
+
+            <div>
+                <ol>
+                    <li><input type="checkbox"   class="check"  th:value="${cartInfo.id}"  onchange="checkSku(this)" th:checked="(${cartInfo.isChecked}=='1')?'true':'false'" /></li>
+                    <li>
+                        <dt><img  th:src="${cartInfo.productPic}"  src="img\shop1.jpg" alt=""></dt>
+                        <dd  th:onclick="'toItem('+${cartInfo.productSkuId}+')'">
+                            <p>
+                                <span th:text="${cartInfo.productName}" >TCL 55A950C 55英寸32核</span>
+                            </p>
+                        </dd>
+                    </li>
+                    <li>
+                        <p class="dj" th:text="'￥'+${cartInfo.price}" >4599.00</p>
+                    </li>
+                    <li>
+                        <p>
+                            <span>-</span>
+                            <span th:text="${cartInfo.quantity}">5</span>
+                            <span>+</span>
+                        </p>
+                    </li>
+                    <li style="font-weight:bold"><p class="zj" th:text="'￥'+${cartInfo.totalPrice}"  >￥22995.00</p></li>
+                    <li>
+                        <p>删除</p>
+                    </li>
+                </ol>
+            </div>
+        </li>
+
+
+    </ul>
+</div>
+<div class="One_ShopFootBuy fix1">
+    <div>
+        <ul>
+            <li><input type="checkbox" class="allCheck"><span>全选</span></li>
+            <li>删除选中的商品</li>
+            <li>移到我的关注</li>
+            <li>清除下柜商品</li>
+        </ul>
+    </div>
+    <div>
+        <font style="color:#e64346;font-weight:bold;" class="sumNum"> </font>&nbsp;
+
+        <ul>
+            <li><img src="img/buyNumleft.png" alt=""></li>
+            <li><img src="img/buyNumright.png" alt=""></li>
+        </ul>
+    </div>
+    <div>
+        <ol>
+            <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt" th:text="${totalAmount}">￥0.00</span>  </li>
+            "user:"+memberId+":cart"
+        </ol>
+    </div>
+    <div><button  onclick="toTrade()" type="button">去结算</button></div>
+</div>
+
+</body>
+</html>

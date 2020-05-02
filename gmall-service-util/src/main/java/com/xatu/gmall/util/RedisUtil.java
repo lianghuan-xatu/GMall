@@ -6,7 +6,7 @@ package com.xatu.gmall.util;
 
 public class RedisUtil {
 
-    private static JedisPool jedisPool;
+    private  JedisPool jedisPool;
 
     public void initPool(String host,int port ,int database){
         JedisPoolConfig poolConfig = new JedisPoolConfig();
@@ -18,7 +18,7 @@ public class RedisUtil {
         jedisPool=new JedisPool(poolConfig,host,port,20*1000);
     }
 
-    public static Jedis getJedis(){
+    public  Jedis getJedis(){
         Jedis jedis = jedisPool.getResource();
         return jedis;
     }
