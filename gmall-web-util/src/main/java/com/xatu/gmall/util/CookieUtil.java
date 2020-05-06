@@ -1,4 +1,4 @@
-package util;
+package com.xatu.gmall.util;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +10,7 @@ import java.net.URLEncoder;
 public class CookieUtil
 {
     /***
-     * 获得cookie中的值，默认为主ip：www.gmall.com
+     * 获得cookie中的值，默认为主ip：www.com.xatu.gmall.com
      * @param request
      * @param cookieName
      * @param isDecoder

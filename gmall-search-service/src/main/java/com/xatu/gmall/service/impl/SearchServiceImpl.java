@@ -34,7 +34,7 @@ public class SearchServiceImpl implements SearchService
     @Override
     public List<PmsSearchSkuInfo> list(PmsSearchParam pmsSearchParam) {
         String searchDsl = getSearchDsl(pmsSearchParam);
-        Search search = new Search.Builder(searchDsl).addIndex("gmall").addType("PmsSkuInfo").build();
+        Search search = new Search.Builder(searchDsl).addIndex("com.xatu.gmall").addType("PmsSkuInfo").build();
         SearchResult execute = null;
         try{
              execute = jestClient.execute(search);

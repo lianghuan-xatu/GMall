@@ -20,4 +20,8 @@ public interface UserService extends IService<Member> {
     List<Member> selectUserById(Integer i);
 
     List<MemberReceiveAddress> getReceiveAddressByMemberId(String memberId);
+
+    Member login(Member loginMember);
+
+    void addToken(String token, Long memberId);
 }

@@ -7,14 +7,13 @@ import com.xatu.gmall.entity.OmsCartItem;
 import com.xatu.gmall.entity.PmsSkuInfo;
 import com.xatu.gmall.service.CartService;
 import com.xatu.gmall.service.SkuService;
+import com.xatu.gmall.annotations.LoginRequired;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.groovy.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import util.CookieUtil;
+import com.xatu.gmall.util.CookieUtil;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,9 +27,18 @@ public class CartController {
 
     @Reference
     CartService cartService;
-
     @Reference
     SkuService skuService;
+
+    @LoginRequired(loginSuccess = true)
+    @RequestMapping("/toTrade")
+    public String toTrade(HttpServletRequest request, HttpServletResponse response, HttpSession session,ModelMap modelMap){
+        String memberId = (String)request.getAttribute("memberId");
+        String nickname = (String)request.getAttribute("nickname");
+        return "toTrade";
+    }
+
+    @LoginRequired(loginSuccess = false)
     @RequestMapping("/addToCart")
     public String addToCart(String skuId, int quantity,HttpServletRequest request, HttpServletResponse response) {
 
@@ -53,7 +61,9 @@ public class CartController {
         omsCartItem.setQuantity(quantity);
 
         //判断用户是否登录
-        String memberId = "1";//"1"
+        String memberId = (String)request.getAttribute("memberId");
+        String nickname = (String)request.getAttribute("nickname");
+
         if (StringUtils.isBlank(memberId)) {
             //用户未登录
             List<OmsCartItem> omsCartItems = new ArrayList<>();
@@ -104,11 +114,13 @@ public class CartController {
             return "redirect:/success.html";
         }
 
+        @LoginRequired(loginSuccess = false)
         @RequestMapping("/cartList")
         public String cartList(String skuId, Integer quantity, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap){
 
         List<OmsCartItem> omsCartItems = new ArrayList<>();
-        String userId = "1";
+            String userId = (String)request.getAttribute("memberId");
+            String nickname = (String)request.getAttribute("nickname");
         if(StringUtils.isNotBlank(userId)){
             //已经登录  查询db
             omsCartItems = cartService.carList(userId);
@@ -127,10 +139,12 @@ public class CartController {
         }
 
 
+        @LoginRequired(loginSuccess = false)
         @RequestMapping("/checkCart")
         public String checkCart(String isChecked,String skuId,HttpServletRequest request,HttpServletResponse response,HttpSession session,ModelMap modelMap){
-        String memberId = "1";
-        //调用服务，修改状态
+            String memberId = (String)request.getAttribute("memberId");
+            String nickname = (String)request.getAttribute("nickname");
+            //调用服务，修改状态
             cartService.checkCart(skuId,memberId,isChecked);
             //将最新的数据从缓存总查出来，渲染给内嵌页
             List<OmsCartItem> omsCartItems = cartService.carList(memberId);

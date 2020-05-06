@@ -13,6 +13,8 @@
 * gmall-search-web用户服务的web层8083
 - gmall-cart-service用户服务的service层8074
 * gmall-cart-web用户服务的web层8084
+* gmall-passport-web用户认证中心端口：8085
+* gmall-user-service用户服务的service8070
 
 
     项目会持续更新，如需协同开发联系（zachary）：

@@ -50,6 +50,7 @@ public class UserController {
         List<MemberReceiveAddress> memberReceiveAddresses=userService.getReceiveAddressByMemberId(memberId);
         System.out.println(Arrays.toString(memberReceiveAddresses.toArray()));
         return memberReceiveAddresses;
+
     }
 
 }

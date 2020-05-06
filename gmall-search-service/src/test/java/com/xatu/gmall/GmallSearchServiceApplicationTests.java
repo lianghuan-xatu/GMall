@@ -38,7 +38,7 @@ public class GmallSearchServiceApplicationTests {
         //导入es
         for (PmsSearchSkuInfo pmsSearchSkuInfo : pmsSearchSkuInfoList) {
             String idStr = pmsSearchSkuInfo.getId().toString();
-            Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall").type("PmsSkuInfo").id(idStr).build();
+            Index put = new Index.Builder(pmsSearchSkuInfo).index("com.xatu.gmall").type("PmsSkuInfo").id(idStr).build();
             jestClient.execute(put);
         }
 

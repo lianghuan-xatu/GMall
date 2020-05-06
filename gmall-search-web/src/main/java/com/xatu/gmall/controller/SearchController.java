@@ -1,6 +1,7 @@
 package com.xatu.gmall.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xatu.gmall.annotations.LoginRequired;
 import com.xatu.gmall.entity.*;
 import com.xatu.gmall.service.AttrService;
 import com.xatu.gmall.service.SearchService;
@@ -21,6 +22,7 @@ public class SearchController {
     AttrService attrService;
 
     @RequestMapping("/index")
+    @LoginRequired(loginSuccess = false)
     public String index(){
         return "index";
     }
