@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>订单列表</title>
+  <link rel="stylesheet" href="css/list.css">
+  <style media="screen">
+    * {
+      font-family: "微软雅黑";
+    }
+  </style>
+</head>
+
+<body>
+  <div id="nav">
+    <nav>
+      <div class="logo">
+        <img src="./img/logo2018.gif" alt="">
+      </div>
+      <div class="myjd">
+
+
+      </div>
+      <ul class="nav_ul">
+        <li>首页</li>
+
+
+      </ul>
+
+      <div style="clear:both;"></div>
+    </nav>
+
+  </div>
+  <div style="clear:both;"></div>
+  <div id="big">
+    <div id="bigLeft">
+      <ul>
+
+      </ul>
+
+    </div>
+    <div id="bigRight">
+      <div class="myOrder">
+        <p>我的订单</p>
+      </div>
+
+
+      <div class="allBig">
+        <div class="allOrder">
+          <ul class="allOrderTop">
+            <li>
+              <ol>
+                <li>全部订单</li>
+                <li>待付款</li>
+                <li>待收货</li>
+                <li>待评价</li>
+                <div style="clear:both;"></div>
+              </ol>
+            </li>
+
+            <div class="clear:both;"></div>
+          </ul>
+
+        </div>
+        <div class="details">
+          <ul class="detailsUl">
+            <div class="detailsUlDiv">
+              <li class="detailsLiok detailsLi">近三个月订单<i class="allBig_i"></i>
+                <ol>
+                  <li>近三个月订单</li>
+                  <li>今年内订单</li>
+                  <li>今年内订单</li>
+                  <li>2016年订单</li>
+                  <li>2015年订单</li>
+                  <li>2014年订单</li>
+                  <li>2014年以前订单</li>
+                </ol>
+              </li>
+              <li class="detailsLi">订单详情</li>
+              <div style="clear:both;"></div>
+            </div>
+
+            <li class="detailsLi1">收货人</li>
+            <li class="detailsLi1">金额</li>
+            <li class="detailsLi1 detailsLiok">全部状态<i class="allBig_i"></i>
+              <ol>
+                <li>全部状态</li>
+                <li>等待付款</li>
+                <li>等待收货</li>
+                <li>已完成</li>
+                <li>已取消</li>
+              </ol>
+            </li>
+            <li class="detailsLi1">操作</li>
+            <div style="clear:both;"></div>
+          </ul>
+        </div>
+
+          <table class="table" th:each="orderInfo:${orderList}">
+            <tr>
+              <td colspan="7" style="background:#F7F7F7"  class="order-header" >
+                <span style="color:#AAAAAA" text="2018-04-22 19:33:00"> </span>
+                <span><ruby style="color:#AAAAAA">订单号:</ruby><span  text=""></span>  </span>
+                <span>状态 </span>
+              </td>
+            </tr>
+
+            <!--不拆单情况------------------->
+            <!--不拆单情况------------------->
+            <!--不拆单情况------------------->
+            <tr >
+              <td colspan="3" class="item">
+                <img    src="img/ding.jpg" alt="" class="img">
+                <div>
+                  <p >商品名称11111111111111</p>
+                </div>
+                <div style="margin-left:15px;"  >X 1</div>
+              </td>
+
+              <td    rowspan="2" ><span  >张晨</span> </td>
+              <td  rowspan="2">
+                <div style="margin-left:15px;"> 总额 9999</div>
+                <hr style="width:90%;">
+                <p   >在线支付</p>
+              </td>
+            <td     rowspan="2">
+              <ul>
+                <li style="color:#71B247;"  >等待收货</li>
+                <li     style="margin:4px 0;" class="hide"><i class="table_i2"></i>跟踪<i class="table_i3"></i>
+                  <div class="hi">
+                    <div class="p-tit" >
+                      普通快递   运单号:390085324974
+                    </div>
+                    <div class="hideList">
+                      <ul>
+                        <li>
+                          [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                          的快件已签收,感谢您使用韵达快递)签收
+                        </li>
+ 
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li class="tdLi">订单详情</li>
+              </ul>
+            </td>
+            <td   rowspan="2">
+              <button>确认收货</button>
+              <p style="margin:4px 0; ">取消订单</p>
+              <p>催单</p>
+            </td>
+            </tr>
+
+
+            <tr >
+              <td colspan="3" class="item">
+                <img    src="img/ding.jpg" alt="" class="img">
+                <div>
+                  <p >商品名称2222222222222222222</p>
+                </div>
+                <div style="margin-left:15px;"  >X 2</div>
+              </td>
+ 
+            </tr>
+
+
+            <!-- 拆单情况------------------->
+            <!-- 拆单情况------------------->
+            <!-- 拆单情况------------------>
+
+           <!--  <span th:if="${orderInfo.orderStatus.toString()=='SPLIT'}" th:each="subOrderInfo,state:${orderInfo.orderSubList}">
+
+            <tr>
+              <td colspan="7" style="background:#F7F7F7"  class="order-header" >
+                <span style="color:#AAAAAA" th:text="${#dates.format(subOrderInfo.createTime,'yyyy-mm-dd HH:MM:SS')}"> </span>
+                <span><ruby style="color:#AAAAAA">子订单号:</ruby><span th:text="${subOrderInfo.id}"></span>  </span>
+                <span th:text="${subOrderInfo.orderStatus.getComment()}">已拆分 </span>
+              </td>
+            </tr>
+
+       <tr  th:each="subOrderDetail,state:${subOrderInfo.orderDetailList}">
+              <td colspan="3" class="item">
+                <img src="img/ding.jpg" alt="" class="img">
+                <div>
+                  <p th:text="${subOrderDetail.skuName}"></p>
+                </div>
+                <div style="margin-left:15px;" th:text="'x'+${subOrderDetail.skuNum}"></div>
+              </td>
+
+              <td  th:if="${state.index==0}"  th:rowspan="${state.size}" ><span th:text="${subOrderInfo.consignee}"></span> </td>
+              <td th:if="${state.index==0}"  th:rowspan="${state.size}">
+                <div style="margin-left:15px;"  th:text="'总额 ￥'+${subOrderInfo.totalAmount}"> </div>
+                <hr style="width:90%;">
+                <p th:text="${subOrderInfo.paymentWay.getComment()}" >在线支付</p>
+              </td>
+            <td th:if="${state.index==0}"  th:rowspan="${state.size}">
+              <ul>
+                <li style="color:#71B247;" th:text="${subOrderInfo.orderStatus.getComment()}">等待收货</li>
+                <li style="margin:4px 0;" class="hide"><i class="table_i2"></i>跟踪<i class="table_i3"></i>
+                  <div class="hi">
+                    <div class="p-tit">
+                      普通快递   运单号:390085324974
+                    </div>
+                    <div class="hideList">
+                      <ul>
+                        <li>
+                          [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                          的快件已签收,感谢您使用韵达快递)签收
+                        </li>
+                        <li>
+                          [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                          的快件已签收,感谢您使用韵达快递)签收
+                        </li>
+                        <li>
+                          [北京昌平区南口公司] 在北京昌平区南口公司进行派件扫描
+                        </li>
+                        <li>
+                          [北京市] 在北京昌平区南口公司进行派件扫描;派送业务员:业务员;联系电话:17319268636
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li class="tdLi">订单详情</li>
+              </ul>
+            </td>
+            <td th:if="${state.index==0}"  th:rowspan="${state.size}">
+              <button>确认收货</button>
+              <p style="margin:4px 0; ">取消订单</p>
+              <p>催单</p>
+            </td>
+            </tr>
+
+
+          </span>-->
+	        <!-- 拆单情况------------------->
+            <!-- 拆单情况------------------->
+            <!-- 拆单情况------------------->
+          </table>
+
+
+
+
+
+
+
+        <table class="table">
+          <tr>
+            <td colspan="7" style="background:#F7F7F7"  class="order-header" >
+              <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+              <span><ruby style="color:#AAAAAA">订单号:</ruby> 70207298274</span>
+              <span>已拆分<i class="table_i"></i></span>
+              <i class="table_i5 isShow"></i>
+            </td>
+          </tr>
+		  <tr >
+            <td colspan="7" style="background:#F7F7F7"  class="order-header" >
+              <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+              <span><ruby style="color:#AAAAAA">订单号:</ruby> 70207298274</span>
+              
+              <i class="table_i5 isShow"></i>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="item">
+              <img src="img/ding.jpg" alt="" class="img">
+              <div>
+                <p>MUXIWEIERPU皮手套男冬季加绒保暖户外骑<br />
+                车开车触摸屏全指防寒全指手套 黑色 均码</p>
+                <div><i class="table_i4"></i>找搭配</div>
+              </div>
+              <div style="margin-left:15px;">x1</div>
+  
+            </td>
+            <td>张三 </td>
+            <td style="padding-left:10px;color:#AAAAB1;">
+              <p style="margin-bottom:5px;">总额 ￥26.00</p>
+            </td>
+            <td>
+              <ul>
+                <li style="color:#71B247;">等待收货</li>
+                <li style="margin:4px 0;" class="hide"><i class="table_i2"></i>跟踪<i class="table_i3"></i>
+                    <div class="hi">
+                      <div class="p-tit">
+                        普通快递   运单号:390085324974
+                      </div>
+                      <div class="hideList">
+                        <ul>
+                          <li>
+                            [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                            的快件已签收,感谢您使用韵达快递)签收
+                          </li>
+                          <li>
+                            [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                            的快件已签收,感谢您使用韵达快递)签收
+                          </li>
+                          <li>
+                            [北京昌平区南口公司] 在北京昌平区南口公司进行派件扫描
+                          </li>
+                          <li>
+                            [北京市] 在北京昌平区南口公司进行派件扫描;派送业务员:业务员;联系电话:17319268636
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                </li>
+                <li class="tdLi">订单详情</li>
+              </ul>
+            </td>
+            <td>
+              <button>确认收货</button>
+              <p style="margin:4px 0; ">取消订单</p>
+              <p>催单</p>
+            </td>
+          </tr>
+		  <tr>
+            <td colspan="7" style="background:#F7F7F7"   class="order-header">
+              <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+              <span><ruby style="color:#AAAAAA">订单号:</ruby> 70207298274</span>
+            </td>
+          </tr>
+          <tr class="tr">
+            <td colspan="3" class="item">
+              <img src="img/ding.jpg" alt="" class="img">
+              <div>
+                <p>MUXIWEIERPU皮手套男冬季加绒保暖户外骑<br />
+                车开车触摸屏全指防寒全指手套 123123123123123</p>
+                <div><i class="table_i4"></i>找搭配</div>
+              </div>
+              <div style="margin-left:15px;">x1</div>
+              <div style="clear:both"></div>
+ 
+            </td>
+            <td rowspan="2" >张三 </td>
+            <td rowspan="2" style="padding-left:10px;color:#AAAAB1;">
+              <p style="margin-bottom:5px;">总额 ￥26.00</p>
+            </td>
+            <td rowspan="2" >
+              <ul>
+                <li style="color:#71B247;">等待收货</li>
+                <li style="margin:4px 0;" class="hide"><i class="table_i2"></i>跟踪<i class="table_i3"></i>
+                    <div class="hi">
+                      <div class="p-tit">
+                        普通快递   运单号:390085324974
+                      </div>
+                      <div class="hideList">
+                        <ul>
+                          <li>
+                            [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                            的快件已签收,感谢您使用韵达快递)签收
+                          </li>
+                          <li>
+                            [北京市] 在北京昌平区南口公司进行签收扫描,快件已被拍照(您
+                            的快件已签收,感谢您使用韵达快递)签收
+                          </li>
+                          <li>
+                            [北京昌平区南口公司] 在北京昌平区南口公司进行派件扫描
+                          </li>
+                          <li>
+                            [北京市] 在北京昌平区南口公司进行派件扫描;派送业务员:业务员;联系电话:17319268636
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                </li>
+                <li class="tdLi">订单详情</li>
+              </ul>
+            </td>
+            <td rowspan="2">
+              <button>确认收货</button>
+              <p style="margin:4px 0; ">取消订单</p>
+              <p>催单</p>
+            </td>
+		
+
+         </tr>
+		 <tr>
+		   <td colspan="3" class="item">
+              <img src="img/ding.jpg" alt="" class="img">
+              <div>
+                <p>MUXIWEIERPU皮手套男冬季加绒保暖户外骑<br />
+                车开车触摸屏全指防寒全指手套 999900000</p>
+                <div><i class="table_i4"></i>找搭配</div>
+              </div>
+              <div style="margin-left:15px;">x1</div>
+              <div style="clear:both"></div>
+ 
+            </td>
+		 </tr>
+        </table>
+
+ 
+
+
+ 
+
+ 
+
+
+ 
+
+        <div class="order_btm">
+          <div>
+            <button>上一页</button>
+            <span>1</span>
+            <button>下一页</button>
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+
+
+
+
+
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+
+
+
+
+  <div class="fixed">
+    <div class="dog">
+      <img src="img/joygif.gif" alt="">
+    </div>
+    <div class="teSe">
+      <ul>
+        <li class="test_li1">
+          <ol>
+
+          </ol>
+        </li>
+        <li class="test_li2"></li>
+        <li><a href="#" class="test_li3"></a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/list.js"></script>
+
+</html>

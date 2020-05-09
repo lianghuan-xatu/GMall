@@ -168,7 +168,7 @@
 <script type="text/javascript">
 
      function toTrade(){
-         window.location.href="http://localhost:8084/toTrade";
+         window.location.href="http://localhost:8086/toTrade";
     }
     function toItem(skuId) {
         window.location.href="http://localhost:8082/"+skuId+".html";
@@ -179,8 +179,8 @@
        window.location.href="http://localhost/index?originUrl="+s;
     }
 
-    function checkSku( chkbox){
-       var skuId= $(chkbox).attr("value");
+    function checkSku(chkbox){
+       var skuId= $(chkbox).prop("value");
        var checked=$(chkbox).prop("checked");
        var isCheckedFlag="0";
        if(checked){

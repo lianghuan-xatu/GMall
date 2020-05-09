@@ -135,6 +135,8 @@ public class CartController {
 
         }
         modelMap.put("cartList",omsCartItems);
+        BigDecimal totalAmount = getTotalAmount(omsCartItems);
+        modelMap.put("totalAmount",totalAmount.toString());
         return "cartList";
         }
 
@@ -150,7 +152,7 @@ public class CartController {
             List<OmsCartItem> omsCartItems = cartService.carList(memberId);
             modelMap.put("cartList",omsCartItems);
             BigDecimal totalAmount = getTotalAmount(omsCartItems);
-            modelMap.put("totalAccount",totalAmount);
+            modelMap.put("totalAmount",totalAmount.toString());
             return "cartListInner";
         }
 
@@ -171,7 +173,13 @@ public class CartController {
     private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems){
         BigDecimal totalAmount = new BigDecimal("0");
         for (OmsCartItem omsCartItem : omsCartItems) {
-            BigDecimal totalPrice = new BigDecimal(omsCartItem.getTotalPrice());
+            BigDecimal totalPrice;
+            if(StringUtils.isNotBlank(omsCartItem.getTotalPrice())){
+                totalPrice = new BigDecimal(omsCartItem.getTotalPrice());
+            }else{
+                totalPrice = new BigDecimal("0");
+            }
+
             totalAmount = totalAmount.add(totalPrice);
         }
         return totalAmount;

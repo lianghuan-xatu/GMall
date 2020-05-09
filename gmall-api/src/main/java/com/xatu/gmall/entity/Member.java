@@ -118,6 +118,36 @@ public class Member implements Serializable {
      */
     private Integer historyIntegration;
 
+    private String accessCode;
+
+    private String sourceUid;
+
+    private String accessToken;
+
+    public String getAccessCode() {
+        return accessCode;
+    }
+
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
+    }
+
+    public String getSourceUid() {
+        return sourceUid;
+    }
+
+    public void setSourceUid(String sourceUid) {
+        this.sourceUid = sourceUid;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

@@ -20,6 +20,7 @@ import org.redisson.Redisson;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -196,10 +197,26 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, PmsSkuInfo> imple
         return pmsSkuInfos;
     }
 
+    @Override
+    public String getSkuPriceBySkuId(Long productSkuId) {
+        PmsSkuInfo pmsSkuInfo = skuInfoMapper.selectById(productSkuId);
+        return pmsSkuInfo.getPrice().toString();
+
+    }
+
 
     public List<PmsSkuInfo> selectAll(String catalog3Id) {
         return null;
     }
+    @Override
+    public boolean checkPrice(Long productSkuId, BigDecimal price) {
+        boolean b =false;
 
+        BigDecimal skuPriceBySkuId = new BigDecimal(skuInfoMapper.selectById(productSkuId).getPrice());
+        if(skuPriceBySkuId.compareTo(price)==0){
+            b = true;
+        }
+        return b;
+    }
 
 }

@@ -24,4 +24,10 @@ public interface UserService extends IService<Member> {
     Member login(Member loginMember);
 
     void addToken(String token, Long memberId);
+
+    Member addOauthUser(Member member);
+
+    Member checkOauthUser(Member umsCheck);
+
+    MemberReceiveAddress getReceiveAddressByReceiveAddressId(String receiveAddressId);
 }

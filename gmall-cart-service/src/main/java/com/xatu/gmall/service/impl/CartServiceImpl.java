@@ -9,6 +9,7 @@ import com.xatu.gmall.mapper.CartMapper;
 import com.xatu.gmall.service.CartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xatu.gmall.util.RedisUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
@@ -100,7 +101,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, OmsCartItem> implem
     public void checkCart(String skuId, String memberId, String isChecked) {
         OmsCartItem omsCartItem = new OmsCartItem();
         omsCartItem.setIsChecked(isChecked);
-        cartMapper.update(omsCartItem,new UpdateWrapper<OmsCartItem>().eq("product_sku_id",skuId).eq("member_id",memberId));
+        cartMapper.updateIsChecked(skuId,memberId,isChecked);
         //缓存刷新
         try{
             flushCache(memberId);

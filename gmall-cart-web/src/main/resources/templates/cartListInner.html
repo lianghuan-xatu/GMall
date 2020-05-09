@@ -13,7 +13,7 @@
 
             <div>
                 <ol>
-                    <li><input type="checkbox"   class="check"  th:value="${cartInfo.id}"  onchange="checkSku(this)" th:checked="(${cartInfo.isChecked}=='1')?'true':'false'" /></li>
+                    <li><input type="checkbox"   class="check"  th:value="${cartInfo.productSkuId}"  onchange="checkSku(this)" th:checked="(${cartInfo.isChecked}=='1')?'true':'false'" /></li>
                     <li>
                         <dt><img  th:src="${cartInfo.productPic}"  src="img\shop1.jpg" alt=""></dt>
                         <dd  th:onclick="'toItem('+${cartInfo.productSkuId}+')'">

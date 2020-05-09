@@ -7,6 +7,7 @@ import com.xatu.gmall.entity.Member;
 import com.xatu.gmall.entity.MemberReceiveAddress;
 import com.xatu.gmall.mapper.MemberReceiveAddressMapper;
 import com.xatu.gmall.mapper.UserMapper;
+import com.xatu.gmall.mapper.UserReceiveAddressMapper;
 import com.xatu.gmall.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xatu.gmall.util.RedisUtil;
@@ -33,6 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Member> implements 
     MemberReceiveAddressMapper memberReceiveAddressMapper;
     @Autowired
     RedisUtil redisUtil;
+    @Autowired
+    UserReceiveAddressMapper userReceiveAddressMapper;
 
     public List<Member> selectUserById(Integer i) {
         return userMapper.SelectUserById(1);
@@ -84,6 +87,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Member> implements 
         Jedis jedis = redisUtil.getJedis();
         jedis.setex("user:"+memberId+":token",60*60*2,token);
         jedis.close();
+    }
+
+    @Override
+    public Member addOauthUser(Member member) {
+        userMapper.insert(member);
+        return userMapper.selectOne(new QueryWrapper<Member>().eq("id",member.getId()));
+    }
+
+    @Override
+    public Member checkOauthUser(Member umsCheck) {
+        return userMapper.selectOne(new QueryWrapper<Member>().eq("source_uid",umsCheck.getSourceUid()));
+    }
+
+    @Override
+    public MemberReceiveAddress getReceiveAddressByReceiveAddressId(String receiveAddressId) {
+        return userReceiveAddressMapper.selectById(receiveAddressId);
     }
 
     private Member loginFromDB(Member loginMember) {

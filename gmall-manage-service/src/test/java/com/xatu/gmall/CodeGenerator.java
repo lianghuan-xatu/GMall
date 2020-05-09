@@ -35,7 +35,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
        // String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("D:\\IDEA WORKSPACE4\\GMall\\com.xatu.gmall-api\\src\\main\\java");
+        gc.setOutputDir("D:\\IDEA WORKSPACE4\\GMall\\gmall-api\\src\\main\\java");
         gc.setAuthor("LiangHuan");
         gc.setOpen(false);
         gc.setFileOverride(false);
@@ -51,7 +51,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.0.106:3306/com.xatu.gmall?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://192.168.0.106:3306/gmall?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -61,7 +61,7 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("com.xatu.gmall");
+        pc.setModuleName("gmall");
         pc.setParent("com.xatu");
         pc.setEntity("entity");
         pc.setController("controller");
@@ -81,7 +81,7 @@ public class CodeGenerator {
         /* 公共父类
          strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");// 写于父类中的公共字段
          strategy.setSuperEntityColumns("id");*/
-        strategy.setInclude("oms_cart_item");  //设置要要映射的表名
+        strategy.setInclude("ums_member_level","oms_company_address","oms_order","oms_order_item");  //设置要要映射的表名
 
        /* strategy.setControllerMappingHyphenStyle(true);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());*/

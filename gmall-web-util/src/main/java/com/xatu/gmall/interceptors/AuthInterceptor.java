@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -72,6 +71,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 //需要将tockn携带的用户信息写入
                 request.setAttribute("memberId",successMap.get("memberId"));
                 request.setAttribute("nickname",successMap.get("nickname"));
+                //验证通过，覆盖cookie中的token
+                if(StringUtils.isNotBlank(token)){
+                    CookieUtil.setCookie(request,response,"oldToken",token,60*60*2,true);
+                }
                 return true;
             }
         }else{
@@ -80,14 +83,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 //需要将tockn携带的用户信息写入
                 request.setAttribute("memberId",successMap.get("memberId"));
                 request.setAttribute("nickname",successMap.get("nickname"));
-
+                //验证通过，覆盖cookie中的token
+                if(StringUtils.isNotBlank(token)){
+                    CookieUtil.setCookie(request,response,"oldToken",token,60*60*2,true);
+                }
             }
         }
-        //验证通过，覆盖cookie中的token
-        if(StringUtils.isNotBlank(token)){
-            CookieUtil.setCookie(request,response,"oldToken",token,60*60*2,true);
-        }
-
         return true;
     }
 }
