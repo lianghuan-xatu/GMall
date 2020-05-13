@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-3.1.1.min.js" charset="utf-8"></script>
+	</head>
+	<body>
+    <div class="One_Jdbox">
+      <div class="Jdbox_head">
+        <img src="/img/logo1.jpg" alt="">
+        <ul>
+          <li><span th:text="'你好,'+ ${nickName}"></span><span>退出</span></li>
+          <li>我的订单</li>
+          <li>支付帮助</li>
+        </ul>
+      </div>
+      <div class="Jdbox_BuySuc">
+        <dl>
+
+          <dd>
+            <span th:text="'订单提交成功，请尽快付款！订单号：'+${orderId}"> </span>
+            <span th:text="'应付金额'+${totalAmount}+'元'"> </span>
+          </dd>
+          <dd>
+            <span>推荐使用</span>
+            <span>扫码支付请您在<font>24小时</font>内完成支付，否则订单会被自动取消(库存紧订单请参见详情页时限)</span>
+            <span>订单详细</span>
+          </dd>
+        </dl>
+      </div>
+      <div class="Jd_Con">
+
+
+        <div class="Jd_main">
+          <ul>
+            <li>
+              <span>
+                <input type="radio"  value="alipay" />
+                <img src="/img/alipay.jpg" alt="">支付宝
+              </span>
+            </li>
+            <li>
+              <span>
+                <input type="radio"  value="mx" />
+                <img src="/img/weixin.png" alt="">微信支付
+              </span>
+
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+              <button id="paymentButton">立即支付</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+
+    <form    method="post" id="paymentForm">
+
+         <input type="hidden" name="orderId" th:value="${orderId}" >
+    </form>
+
+
+	</body>
+  <script type="text/javascript">
+      $(function() {
+          $("#paymentButton").click(function () {
+              $("#paymentForm").attr("action","/"+$("input[type='radio']:checked").val()+"/submit")  ;
+              $("#paymentForm").submit();
+
+          })
+
+      })
+
+
+
+
+
+    //立即支付按钮效果
+    $("#paymentButton").mouseover(function(){
+      $(this).css({"cursor":"pointer","background":"#FF5350"})
+    }).mouseout(function(){
+      $(this).css("background","#FC6E6C")
+    })
+
+
+
+
+
+  </script>
+</html>

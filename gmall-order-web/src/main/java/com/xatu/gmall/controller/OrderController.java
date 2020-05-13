@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,16 +83,16 @@ public class OrderController {
 
     @RequestMapping("/submitOrder")
     @LoginRequired(loginSuccess = true)
-    public String submitOrder(String tradeCode,String receiveAddressId, BigDecimal totalAmount, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap){
+    public ModelAndView submitOrder(String tradeCode,String receiveAddressId, BigDecimal totalAmount, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap){
         String memberId = (String)request.getAttribute("memberId");
         String nickname = (String)request.getAttribute("nickname");
         //检查交易码
         String success = orderService.checkTradeCode(memberId,tradeCode);
-        if(success.equals("success")){
+        if(success.equals("success")) {
             //订单项对象
-            List<OmsOrderItem> omsOrderItems =new ArrayList<>();
+            List<OmsOrderItem> omsOrderItems = new ArrayList<>();
             //订单对象
-            OmsOrder omsOrder =new OmsOrder();
+            OmsOrder omsOrder = new OmsOrder();
             omsOrder.setAutoConfirmDay(7);
             String outTradeNo = "gmall";
             outTradeNo = outTradeNo + System.currentTimeMillis();//将毫秒时间戳拼接到外部订单号
@@ -107,8 +108,8 @@ public class OrderController {
             omsOrder.setReceiverProvince(receiveAddressByReceiveAddressId.getProvince());
             omsOrder.setReceiverRegion(receiveAddressByReceiveAddressId.getRegion());
             //当前日期加一天
-            Calendar calendar =Calendar.getInstance();
-            calendar.add(Calendar.DATE,1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, 1);
             Date date = calendar.getTime();
             omsOrder.setReceiveTime(date);
             omsOrder.setSourceType(0);
@@ -116,18 +117,17 @@ public class OrderController {
             omsOrder.setTotalAmount(totalAmount);
 
 
-
             //根据用户id获得要购买的商品列表（购物车），和总价格
             List<OmsCartItem> omsCartItems = cartService.carList(memberId);
             for (OmsCartItem omsCartItem : omsCartItems) {
-                if(omsCartItem.getIsChecked().equals("1")){
+                if (omsCartItem.getIsChecked().equals("1")) {
                     //获得订单详情列表
                     OmsOrderItem omsOrderItem = new OmsOrderItem();
                     //验价
                     BigDecimal price = omsCartItem.getPrice();
-                    boolean b =skuService.checkPrice(omsCartItem.getProductSkuId(),price);
-                    if(b==false){
-                        return "tradeFail";
+                    boolean b = skuService.checkPrice(omsCartItem.getProductSkuId(), price);
+                    if (b == false) {
+                        return new ModelAndView("tradeFail");
                     }
                     //验库存
                     omsOrderItem.setProductPic(omsCartItem.getProductPic());
@@ -152,13 +152,17 @@ public class OrderController {
             //删除购物车的对应商品
             orderService.saveOrder(omsOrder);
             //重定向到支付系统
+            ModelAndView modelAndView =new ModelAndView("redirect:http://localhost:8087");
+            modelAndView.addObject("outTradeNo",outTradeNo);
+            modelAndView.addObject("totalAmount",totalAmount);
+            return modelAndView;
 
 
-
-
+        }else{
+            ModelAndView modelAndView = new ModelAndView("tradeFail");
+            return modelAndView;
         }
 
-        return "tradeFail";
     }
 
     private BigDecimal getTotalAmount(List<OmsOrderItem> omsOrderItems){

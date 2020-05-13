@@ -2,18 +2,25 @@ package com.xatu.gmall.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.xatu.gmall.entity.OmsOrder;
 import com.xatu.gmall.entity.OmsOrderItem;
+import com.xatu.gmall.entity.PaymentInfo;
 import com.xatu.gmall.mapper.OrderItemMapper;
 import com.xatu.gmall.mapper.OrderMapper;
 import com.xatu.gmall.service.CartService;
 import com.xatu.gmall.service.OrderService;
 import com.xatu.gmall.service.SkuService;
+import com.xatu.gmall.util.ActiveMQUtil;
 import com.xatu.gmall.util.RedisUtil;
+import org.apache.activemq.command.ActiveMQMapMessage;
+import org.apache.activemq.command.ActiveMQTextMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
+import javax.jms.*;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +38,10 @@ public class OrderServiceImpl implements OrderService
     OrderItemMapper orderItemMapper;
     @Reference
     CartService cartService;
+    @Autowired
+    ActiveMQUtil activeMQUtil;
+
+
 
     @Override
     public String genTradeCode(String memberId) {
@@ -92,5 +103,52 @@ public class OrderServiceImpl implements OrderService
 
     }
 
+    @Override
+    public OmsOrder getOrderByOutTradeNo(String outTradeNo) {
+        OmsOrder omsOrder = orderMapper.selectOne(new QueryWrapper<OmsOrder>().eq("order_sn", outTradeNo));
+        return omsOrder;
+    }
 
-}
+    @Override
+    public void updateOrderStatus(String out_trade_no) {
+
+        //发送订单已支付的队列提供给库存
+        Connection connection = null;
+        Session session = null;
+        try {
+            connection = activeMQUtil.getConnectionFactory().createConnection();
+            session = connection.createSession(true, Session.SESSION_TRANSACTED);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            OmsOrder omsOrder = new OmsOrder();
+            omsOrder.setStatus(1);
+            orderMapper.update(omsOrder, new UpdateWrapper<OmsOrder>().eq("out_trade_no", out_trade_no));
+
+            //调用mq发送支付成功的消息
+            Queue order_pay_quene = session.createQueue("ORDER_PAY_QUENE");
+            MessageProducer producer = session.createProducer(order_pay_quene);
+            TextMessage textMessage = new ActiveMQTextMessage();//字符串文本
+            MapMessage mapMessage = new ActiveMQMapMessage();//hash结构
+            mapMessage.setString("out_trade_no", out_trade_no);
+            session.commit();
+
+        } catch (Exception e) {
+            //消息回滚
+            try {
+                session.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.close();
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }}
+
+
