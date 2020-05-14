@@ -7,7 +7,6 @@ public class PmsSearchCrumb {
     private String valueId;
     private String valueName;
     private String urlParam;
-
     public String getValueId() {
         return valueId;
     }
