@@ -16,9 +16,6 @@ import lombok.experimental.Accessors;
  * @author LiangHuan
  * @since 2020-04-15
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("ums_member_receive_address")
 public class MemberReceiveAddress implements Serializable {
 

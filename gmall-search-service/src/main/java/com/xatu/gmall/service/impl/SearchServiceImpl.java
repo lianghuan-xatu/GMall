@@ -1,10 +1,9 @@
 package com.xatu.gmall.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+
 import com.xatu.gmall.entity.PmsSearchParam;
 import com.xatu.gmall.entity.PmsSearchSkuInfo;
-import com.xatu.gmall.entity.PmsSkuAttrValue;
-import com.xatu.gmall.entity.PmsSkuSaleAttrValue;
 import com.xatu.gmall.service.SearchService;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Search;
