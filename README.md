@@ -29,7 +29,6 @@ JDK 	1.8 	https://www.oracle.com/technetwork/java/javase/downloads/jdk8-download
 Mysql 	5.7 	https://www.mysql.com/
 Redis 	3.2 	https://redis.io/download
 Elasticsearch 	6.2.2 	https://www.elastic.co/downloads
-MongoDb 	3.2 	https://www.mongodb.com/download-center
 RabbitMq 	3.7.14 	http://www.rabbitmq.com/download.html
 nginx 	1.10 	http://nginx.org/en/download.html
 
@@ -64,7 +63,6 @@ Hibernator-Validator 	验证框架 	http://hibernate.org/validator/
 Elasticsearch 	搜索引擎 	https://github.com/elastic/elasticsearch
 RabbitMq 	消息队列 	https://www.rabbitmq.com/
 Redis 	分布式缓存 	https://redis.io/
-MongoDb 	NoSql数据库 	https://www.mongodb.com/
 Docker 	应用容器引擎 	https://www.docker.com/
 Druid 	数据库连接池 	https://github.com/alibaba/druid
 OSS 	对象存储 	https://github.com/aliyun/aliyun-oss-java-sdk
