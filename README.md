@@ -15,6 +15,7 @@
 * gmall-cart-web用户服务的web层8084
 * gmall-passport-web用户认证中心端口：8085
 * gmall-user-service用户服务的service8070
+* gmall-admin   商城后台管理系统前端模板
 
 
     项目会持续更新，如需协同开发联系（zachary）：
@@ -23,6 +24,10 @@
      
      
         Tel:18391713434
+   
+   
+   ==如需安装好的linux虚拟机副本请和我联系==
+       
         开发环境
 工具 	版本号 	下载
 JDK 	1.8 	https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
