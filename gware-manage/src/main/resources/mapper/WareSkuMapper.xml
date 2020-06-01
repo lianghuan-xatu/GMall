@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xatu.gware.mapper.WareSkuMapper" >
+    <select id="selectWareSkuAll"   resultMap="wareSkuMap">
+     SELECT ws.id,ws.sku_id,warehouse_id,stock_name,stock,stock_locked,wi.name as warehouse_name
+      FROM ware_sku ws INNER JOIN ware_info wi
+        ON ws.warehouse_id=wi.id
+    </select>
+    <resultMap id="wareSkuMap" type="com.xatu.gware.bean.WareSku" autoMapping="true">
+        <result property="id" column="id" ></result>
+    </resultMap>
+
+    <select id="selectStockBySkuid" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(stock-IFNULL(stock_locked,0)) from ware_sku  where sku_id=#{skuid}
+    </select>
+
+    <select id="selectStockBySkuidForUpdate" parameterType="com.xatu.gware.bean.WareSku" resultType="java.lang.Integer">
+        select  stock-IFNULL(stock_locked,0) as available_stock from ware_sku  where sku_id=#{skuId} and warehouse_id=#{warehouseId} for update
+    </select>
+
+    <update id="incrStockLocked" parameterType="com.xatu.gware.bean.WareSku" >
+        UPDATE  ware_sku   SET  stock_locked=  IFNULL(stock_locked,0)+#{stockLocked}  WHERE sku_id=#{skuId} and warehouse_id=#{warehouseId}
+    </update>
+
+    <update id="deliveryStock" parameterType="com.xatu.gware.bean.WareSku" >
+        UPDATE  ware_sku   SET  stock_locked=  stock_locked-#{stock},
+        stock=  stock-#{stock}
+        WHERE sku_id=#{skuId} and warehouse_id=#{warehouseId}
+    </update>
+
+</mapper>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>库存系统</title>
+</head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="easyui/easyloader.js"></script>
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css">
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',title:'东北人都是黑社会',split:true"
+		style="height: 100px;">
+		<center>
+			<h1 style="color: red">过了山海关，就找赵本山！ 到了东北必须找本山大爷罩着！</h1>
+		</center>
+	</div>
+	<div data-options="region:'south',title:'南方都软妹子',split:true"
+		style="height: 100px;">
+		<center>
+			<h1 style="color: red">南水北调</h1>
+		</center>
+
+	</div>
+	<div
+		data-options="region:'east',iconCls:'icon-reload',title:'东部都是有钱人',split:true"
+		style="width: 100px;">
+		<center>
+			<h1 style="color: red">东方明珠！-董明珠-格力老总！</h1>
+		</center>
+	</div>
+	<div data-options="region:'west',title:'西部大开发',split:true"
+		style="width: 100px;">
+		<ul id="tt" class="easyui-tree">
+			<li><span>工作单管理</span>
+				<ul>
+				<!-- data-options:定义控件的树形 
+					data-options="attributes:{key:'value'}"
+					对应下面取值的时候，取key
+				-->
+					<li data-options="attributes:{url:'orderTasklist.html'}" >查询工作单</li>
+					<li>xxx</li>
+				</ul></li>
+
+			<li><span>系统管理</span>
+				<ul>
+					<li>系统设置</li>
+					<li>日志管理</li>
+				</ul></li>
+		</ul>
+	</div>
+	<div data-options="region:'center',title:'中部崛起'"
+		style="padding: 5px; background: #eee;">
+		<div id="tab" class="easyui-tabs"
+			style="width: 500px; height: 450px;">
+			<div title="Tab1" style="padding: 20px; display: none;">tab1
+			</div>
+			<div title="Tab2" data-options="closable:true"
+				style="overflow: auto; padding: 20px; display: none;">tab2</div>
+			<div title="Tab3"
+				data-options="iconCls:'icon-reload',closable:true"
+				style="padding: 20px; display: none;">tab3</div>
+		</div>
+	</div>
+</body>	
+<script type="text/javascript">
+	$(function(){
+		/*#tt取得到tree控件  
+		node:节点
+		*/
+		$('#tt').tree({
+			/* node节点 */
+			onClick: function(node){
+				//alert(node.text);  // 在用户点击的时候提示
+				$('#tab').tabs('add',{    
+				    title:node.text, 
+				    /* 将内容替换成一个jsp、页面 
+				                使用iframe 内嵌框架。 src 引用jsp即可！
+				      当点击左侧树形控件的时候，将该node.attributes.url传递过来！
+				    */
+				    content:"<iframe src='"+node.attributes.url+"' style='border:0;width:100%;height:100%'>",
+				    closable:true,    
+				    tools:[{    
+				        iconCls:'icon-mini-refresh',    
+				        handler:function(){    
+				            alert('refresh');    
+				        }    
+				    }]    
+				}); 
+				
+			}
+		});
+
+
+	})
+</script>
+
+
+</html>

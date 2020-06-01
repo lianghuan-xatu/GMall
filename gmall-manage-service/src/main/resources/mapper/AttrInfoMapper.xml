@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xatu.gmall.mapper.AttrInfoMapper">
+
+<select id="selectAttrValueListByValueId" parameterType="java.lang.String" resultMap="selectAttrValueListByValueIdMap">
+        select ai.id as ai_id,av.id as av_id,ai.*,av.*
+        from
+            pms_base_attr_info as ai,
+            pms_base_attr_value as av
+            where ai.id = av.attr_id
+            and av.id in (${attrValueIdStr})
+</select>
+<resultMap id="selectAttrValueListByValueIdMap" type="com.xatu.gmall.entity.PmsBaseAttrInfo" autoMapping="true">
+    <result property="id" column="ai_id"></result>
+    <collection property="attrValueList" ofType="com.xatu.gmall.entity.PmsBaseAttrValue" autoMapping="true">
+        <result  property="id" column="av_id"></result>
+    </collection>
+</resultMap>
+
+</mapper>

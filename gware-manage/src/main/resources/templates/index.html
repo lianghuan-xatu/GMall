@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>主界面</title>
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/easyui/easyloader.js"></script>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css"  href="/easyui/themes/default/easyui.css">
+
+
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',title:'头部',split:true" style="height:100px;">
+            <h1> 库存管理系统 </h1>
+    </div>
+
+    <div data-options="region:'west',title:'左部',split:true" style="width:200px;">
+        <div class="easyui-accordion" style="overflow:auto;">
+            <div title="库存单元管理">
+                        <ul class="nav">
+                            <li><a href="javascript:add_tab('库存单元管理','wareSkuListPage')" style="text-decoration:none;">库存单元管理</a></li>
+                        </ul>
+            </div>
+            <div title="库存工作单管理">
+                <ul class="nav">
+                    <li><a href="javascript:add_tab('库存工作单管理','taskListPage')" style="text-decoration:none;">库存工作单管理</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div data-options="region:'center',title:'中部'"  >
+        <div id="tt" class="easyui-tabs" style="width:100%;height:100%;" >
+
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript">
+
+    /*<![CDATA[*/
+    function add_tab(title,url){
+        if($("#tt").tabs('exists',title)){
+            $("#tt").tabs('select',title);
+        }else{
+
+            $("#tt").tabs('add',{
+                title:title,
+                href:url,
+                closable:true
+            });
+        }
+    }
+
+
+</script>
+
+</html>

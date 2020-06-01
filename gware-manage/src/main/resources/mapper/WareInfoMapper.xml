@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xatu.gware.mapper.WareInfoMapper" >
+    <select id="selectWareInfoBySkuid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select  w.id,w.name,w.address,w.areacode from ware_info w,ware_sku s where sku_id=#{skuid} and w.id=s.warehouse_id
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.xatu.gware.bean.WareInfo"  >
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="areacode" jdbcType="VARCHAR" property="areacode" />
+    </resultMap>
+
+</mapper>
