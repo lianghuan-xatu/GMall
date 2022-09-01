@@ -27,7 +27,7 @@
         <nekohtml.version>1.9.20</nekohtml.version>
         <xml-apis.version>1.4.01</xml-apis.version>
         <batik-ext.version>1.9.1</batik-ext.version>
-        <jsoup.version>1.11.2</jsoup.version>
+        <jsoup.version>1.15.3</jsoup.version>
         <httpclient.version>4.4.1</httpclient.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <jedis.version>2.9.0</jedis.version>
